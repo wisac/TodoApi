@@ -5,8 +5,8 @@ namespace TodoApi.Models;
 
 public class Todo
 {
-   [Required]
    [Key]
+   [Required]
    public int Id { get; set; }
 
    [Required]

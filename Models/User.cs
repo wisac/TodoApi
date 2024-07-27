@@ -18,9 +18,10 @@ public class User
    [MaxLength(50)]
    public string LastName { get; set; } = string.Empty;
 
-   [Key]
+
    [Required]
    [EmailAddress]
+   [MaxLength(100)]
    public string Email { get; set; } = string.Empty;
 
    [Required]

@@ -2,7 +2,7 @@ namespace TodoApi.Models;
 
 public enum Priority
 {
-   Low,
+   High,
    Normal,
-   High
+   Low,
 }

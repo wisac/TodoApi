@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using TodoApi.Data;
 using TodoApi.Dtos.Users;
 using TodoApi.Models;
