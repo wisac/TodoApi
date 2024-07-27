@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Todo.Models;
+namespace TodoApi.Models;
 
 public class User
 {

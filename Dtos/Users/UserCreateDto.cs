@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Todo.Dtos.Users;
+namespace TodoApi.Dtos.Users;
 
 public class UserCreateDto : UserDto
 {

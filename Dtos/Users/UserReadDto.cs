@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Todo.Dtos.Users;
+namespace TodoApi.Dtos.Users;
 
 public class UserReadDto : UserDto
 {

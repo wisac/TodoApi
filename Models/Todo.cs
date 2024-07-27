@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Todo.Models;
+namespace TodoApi.Models;
 
 public class Todo
 {
@@ -33,6 +33,6 @@ public class Todo
 
    public DateTime? CompletedDate { get; set; }
 
-    // navigation property
+   // navigation property
    public User User { get; set; }
 }

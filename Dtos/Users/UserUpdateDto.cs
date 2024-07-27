@@ -1,3 +1,3 @@
-namespace Todo.Dtos.Users;
+namespace TodoApi.Dtos.Users;
 
 public class UserUpdateDto : UserDto { }

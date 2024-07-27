@@ -1,4 +1,4 @@
-namespace Todo.Dtos.Todos;
+namespace TodoApi.Dtos.Todos;
 
 public class TodoUpdateDto : TodoDto
 {
