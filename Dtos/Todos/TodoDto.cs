@@ -1,16 +1,13 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Todo.Models;
+using Todo.Models;
 
-public class Todo
+namespace Todo.Dtos.Todos;
+
+public class TodoDto
 {
-   [Required]
-   [Key]
-   public int Id { get; set; }
 
    [Required]
-   [ForeignKey("User")]
    public int UserId { get; set; }
 
    [Required]
@@ -18,6 +15,7 @@ public class Todo
    public Priority Priority { get; set; } = Priority.Normal;
 
    [Required]
+
    [MinLength(1)]
    [MaxLength(100)]
    public string Title { get; set; } = string.Empty;
@@ -34,5 +32,4 @@ public class Todo
    public DateTime? CompletedDate { get; set; }
 
     // navigation property
-   public User User { get; set; }
 }

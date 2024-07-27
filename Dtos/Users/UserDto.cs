@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Todo.Dtos.Users;
 
-public class UserBasicDto
+public class UserDto
 {
    [Required]
    [MinLength(1)]

@@ -1,3 +1,3 @@
 namespace Todo.Dtos.Users;
 
-public class UserUpdateDto : UserBasicDto { }
+public class UserUpdateDto : UserDto { }
