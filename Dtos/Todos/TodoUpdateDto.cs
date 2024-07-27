@@ -1,6 +1,7 @@
 namespace Todo.Dtos.Todos;
 
-public class TodoUpdateDto
+public class TodoUpdateDto : TodoDto
 {
-    
+   public DateTime? LastModifiedDate { get; set; }
+   public DateTime? CompletedDate { get; set; }
 }
