@@ -9,4 +9,6 @@ public class UserCreateDto : UserDto
    [MinLength(6)]
    [PasswordPropertyText]
    public string Password { get; set; } = string.Empty;
+
+   
 }
