@@ -9,7 +9,7 @@ namespace TodoApi.Services;
 public interface IUserService
 {
    
-   Task CreateUser(UserCreateDto userDto);
+   Task<UserReadDto> CreateUser(UserCreateDto userDto);
 
    Task<UserReadDto?> GetUserById(int id);
 

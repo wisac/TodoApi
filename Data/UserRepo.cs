@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-
 using TodoApi.Common;
-using TodoApi.Data;
 using TodoApi.Models;
 
-namespace TodoApi.Repositories;
+namespace TodoApi.Data;
 
 public class UserRepo : IUserRepo
 {
@@ -15,10 +13,12 @@ public class UserRepo : IUserRepo
       _context = dbContext;
    }
 
-   public async Task CreateUserAsync(User user)
+   public async Task<User> CreateUserAsync(User user)
    {
       await _context.AddAsync(user);
-   }
+      await _context.SaveChangesAsync();
+      return user;
+   }  
 
    public void DeleteUser(User user)
    {

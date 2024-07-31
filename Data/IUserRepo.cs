@@ -1,6 +1,7 @@
 using TodoApi.Models;
 using TodoApi.Common;
-namespace TodoApi.Repositories;
+
+namespace TodoApi.Data;
 
 /// <summary>
 /// Interface for the User Repository
@@ -11,7 +12,7 @@ public interface IUserRepo
    /// <summary> Create a new User </summary>
    /// <param name="user">The User to create </param>
    /// <returns>A Task </returns>
-   Task CreateUserAsync(User user);
+   Task<User> CreateUserAsync(User user);
 
    /// <summary> Get all Users </summary>
    /// <returns>A Task of IEnumerable of Users </returns>

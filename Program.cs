@@ -1,7 +1,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Data;
-using TodoApi.Repositories;
+using TodoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Logging.AddConsole();
 
-builder.Services.AddScoped<ITodoRepo, TodoRepo>();
+builder.Services.AddScoped<ITodoRepo, TodoRepo>(); 
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // build connection string
 var connStringBuilder = new SqlConnectionStringBuilder()
@@ -38,7 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 
 app.Run();

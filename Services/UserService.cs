@@ -1,28 +1,33 @@
+using Microsoft.Extensions.Logging;
+
+using TodoApi.Data;
 using TodoApi.Dtos.Users;
 using TodoApi.Models;
-using TodoApi.Repositories;
+
 
 namespace TodoApi.Services;
 
 public class UserService : IUserService
 {
-   private readonly UserRepo _repo;
+   private readonly IUserRepo _repo;
+   private readonly ILogger<UserService> _logger;
 
-   public UserService(UserRepo repo)
+   public UserService(IUserRepo repo, ILogger<UserService> logger)
    {
       _repo = repo;
+      _logger = logger;
    }
 
-   public async Task CreateUser(UserCreateDto userDto)
+   public async Task<UserReadDto> CreateUser(UserCreateDto userDto)
    {
       // has password
-      var hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(userDto.Password, 13);
-
+      var hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(userDto.Password, 13);  
       // update password with hash
       userDto.Password = hashedPassword;
-
       // save to db
-      await _repo.CreateUserAsync(MapToUser(userDto));
+      var user = await _repo.CreateUserAsync(UserMapper.MapToUser(userDto));
+
+      return UserMapper.MapToDto(user);
    }
 
    public Task DeleteUser(User user)
@@ -37,17 +42,20 @@ public class UserService : IUserService
 
    public async Task<UserReadDto?> GetUserById(int id)
    {
-     var user = await _repo.GetUserByIdAsync(id);
+      var user = await _repo.GetUserByIdAsync(id);
 
-      return user == null ? null : MapToDto(user);
+      return user == null ? null : UserMapper.MapToDto(user);
    }
 
    public Task<UserReadDto?> UpdateUser(UserUpdateDto userDto)
    {
       throw new NotImplementedException();
    }
+}
 
-   private static User MapToUser(UserCreateDto userDto)
+public static class UserMapper
+{
+   public static User MapToUser(UserCreateDto userDto)
    {
       return new User()
       {
@@ -58,7 +66,8 @@ public class UserService : IUserService
       };
    }
 
-   private static User MapToUser(UserUpdateDto userDto) {
+   public static User MapToUser(UserUpdateDto userDto)
+   {
       return new User()
       {
          Id = userDto.Id,
@@ -68,15 +77,18 @@ public class UserService : IUserService
       };
    }
 
-   private static UserReadDto MapToDto(User user) {
-      return new UserReadDto()
-      {
-         Id = user.Id,
-         FirstName = user.FirstName,
-         LastName = user.LastName,
-         Email = user.Email,
-         TotalTodos = user.Todos.Count,
-         TotalCompleted = user.Todos.Count(t => t.CompletedDate != null),
-      };
+   public static UserReadDto MapToDto(User user)
+   {
+      var dto = new UserReadDto();
+
+      dto.Id = user.Id;
+      dto.FirstName = user.FirstName;
+      dto.LastName = user.LastName;
+      dto.Email = user.Email;
+      dto.TotalTodos = user.Todos.Count;
+      dto.TotalCompleted = user.Todos.Count(t => t.CompletedDate != null);
+   
+
+      return dto;
    }
 }

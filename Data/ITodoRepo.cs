@@ -1,6 +1,6 @@
 using TodoApi.Models;
 
-namespace TodoApi.Repositories;
+namespace TodoApi.Data;
 
 /// <summary>
 /// Interface for the Todo Repository
