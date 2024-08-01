@@ -25,14 +25,21 @@ public class UserService : IUserService
       // save to db
       var user = await _repo.CreateUserAsync(UserMapper.MapToUser(userDto));
       await _repo.SaveChangesAsync();
-      
+
       return UserMapper.MapToDto(user);
 
    }
 
-   public Task DeleteUser(User user)
+   public async Task<bool> DeleteUser(int id)
    {
-      throw new NotImplementedException();
+     var  user = await _repo.GetUserByIdAsync(id);
+     if(user == null){
+         return false;
+     }
+
+      _repo.DeleteUser(user);
+      await _repo.SaveChangesAsync();
+      return true;
    }
 
    public async Task<List<UserReadDto>> GetAllUsers()

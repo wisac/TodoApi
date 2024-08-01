@@ -15,6 +15,7 @@ public class UserController : ControllerBase
       _service = userService;
    }
 
+
    // GET: TodoController
    [HttpPost("register")]
    public async Task<IActionResult> Create(UserCreateDto user)
@@ -45,5 +46,10 @@ public class UserController : ControllerBase
       var user = await _service.UpdateUser(userDto, id);
 
       return user == null ? NotFound() : Ok(user);
+   }
+
+   [HttpDelete("{id}")]
+   public async Task<IActionResult> DeleteUser(int id){
+      return await _service.DeleteUser(id) ? NoContent() : NotFound();
    }
 }

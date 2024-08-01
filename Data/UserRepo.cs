@@ -17,7 +17,7 @@ public class UserRepo : IUserRepo
    {
       await _context.AddAsync(user);
       return user;
-   }  
+   }
 
    public void DeleteUser(User user)
    {
@@ -26,17 +26,20 @@ public class UserRepo : IUserRepo
 
    public async Task<IEnumerable<User>> GetAllUsersAsync()
    {
-      var query = _context.Users.Include(u => u.Todos);
-      return await query.ToListAsync();
+      return await _context.Users.Include(u => u.Todos).ToListAsync();
    }
 
    public Task<User?> GetUserByAnyFieldAsync(FieldType fieldType, string value)
    {
       var user = fieldType switch
       {
-         FieldType.Id => _context.Users.Include(u => u.Todos).FirstOrDefaultAsync(u => u.Id == int.Parse(value)),
+         FieldType.Id
+            => _context
+               .Users.Include(u => u.Todos)
+               .FirstOrDefaultAsync(u => u.Id == int.Parse(value)),
 
-         FieldType.Email => _context.Users.Include(u => u.Todos).FirstOrDefaultAsync(u => u.Email == value),
+         FieldType.Email
+            => _context.Users.Include(u => u.Todos).FirstOrDefaultAsync(u => u.Email == value),
 
          _ => throw new NotImplementedException()
       };
@@ -62,5 +65,4 @@ public class UserRepo : IUserRepo
    {
       await _context.SaveChangesAsync();
    }
-
 }
