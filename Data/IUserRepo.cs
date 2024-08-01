@@ -36,10 +36,6 @@ public interface IUserRepo
    /// <summary> Update a User </summary>
    /// <param name="user">The User to update </param>
    /// <returns>A Task of User </returns>
-   Task<User?> UpdateUserAsync(User user);
-
-   /// <summary> Save changes to the database </summary>
-   /// <returns>A Task </returns>
    Task SaveChangesAsync();
 
    /// <summary> Get a User by any search type and field </summary>

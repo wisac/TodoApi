@@ -15,7 +15,7 @@ public interface IUserService
 
    Task<List<UserReadDto>> GetAllUsers();
 
-   Task<UserReadDto?> UpdateUser(UserUpdateDto userDto);
+   Task<UserReadDto?> UpdateUser(UserUpdateDto userDto, int id);
 
    Task DeleteUser(User user);
 }

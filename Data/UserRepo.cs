@@ -16,7 +16,6 @@ public class UserRepo : IUserRepo
    public async Task<User> CreateUserAsync(User user)
    {
       await _context.AddAsync(user);
-      await _context.SaveChangesAsync();
       return user;
    }  
 
@@ -64,16 +63,4 @@ public class UserRepo : IUserRepo
       await _context.SaveChangesAsync();
    }
 
-   public async Task<User?> UpdateUserAsync(User user)
-   {
-      var userToUpdate = await _context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
-      if (userToUpdate == null)
-      {
-         return null;
-      }
-
-      _context.Entry(userToUpdate).CurrentValues.SetValues(user);
-
-      return userToUpdate;
-   }
 }

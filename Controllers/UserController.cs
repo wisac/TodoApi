@@ -28,10 +28,22 @@ public class UserController : ControllerBase
    public async Task<IActionResult> GetUserById(int id)
    {
       var user = await _service.GetUserById(id);
-      if (user == null)
-      {
-         return NotFound();
-      }
-      return Ok(user);
+
+      return user == null ? NotFound() : Ok(user);
+   }
+
+   [HttpGet]
+   public async Task<IActionResult> GetAllUsers()
+   {
+      List<UserReadDto> users = await _service.GetAllUsers();
+      return Ok(users);
+   }
+
+   [HttpPatch("{id}")]
+   public async Task<IActionResult> EditUser(UserUpdateDto userDto, int id)
+   {
+      var user = await _service.UpdateUser(userDto, id);
+
+      return user == null ? NotFound() : Ok(user);
    }
 }
