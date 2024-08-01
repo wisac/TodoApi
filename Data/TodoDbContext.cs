@@ -16,10 +16,10 @@ public class TodoDbContext : DbContext
          .WithMany(u => u.Todos)
          .HasForeignKey(t => t.UserId);
 
-      modelBuilder
-         .Entity<Todo>()
-         .Property(t => t.Priority)
-         .HasConversion(v => v.ToString(), v => (Priority)Enum.Parse(typeof(Priority), v));
+      // modelBuilder
+      //    .Entity<Todo>()
+      //    .Property(t => t.Priority)
+      //    .HasConversion(v => v.ToString(), v => (Priority)Enum.Parse(typeof(Priority), v));
    }
 
    public DbSet<Todo> Todos { get; set; }

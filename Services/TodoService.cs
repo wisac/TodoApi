@@ -14,22 +14,27 @@ public class TodoService : ITodoService
    }
 
    public async Task<TodoReadDto?> CreateTodo(TodoCreateDto todo)
-   {  
+   {
       var newTodo = await _repo.CreateTodoAsync(TodoMapper.MapToTodo(todo));
-      if(newTodo == null)
+      if (newTodo == null)
       {
          return null;
       }
       await _repo.SaveChangesAsync();
-      Console.WriteLine("\n USERAFTER: " +newTodo.UserId);
-      
 
       return TodoMapper.MapToDto(newTodo);
    }
 
-   public Task<bool> DeleteTodo(int id)
+   public async Task<bool> DeleteTodo(int id)
    {
-      throw new NotImplementedException();
+      var todo = await _repo.GetTodoByIdAsync(id);
+      if (todo == null)
+      {
+         return false;
+      }
+      _repo.DeleteTodo(todo);
+      await _repo.SaveChangesAsync();
+      return true;
    }
 
    public Task<IEnumerable<TodoReadDto>> GetAllTodos()
