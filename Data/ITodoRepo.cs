@@ -25,12 +25,10 @@ public interface ITodoRepo
    /// <param name="todo">The Todo to delete </param>
    void DeleteTodo(Todo todo);
 
-   /// <summary> Update a Todo </summary>
-   /// <param name="todo">The Todo to update </param>
-   /// <returns>A Task of Todo </returns>
-   Task UpdateTodoAsync(Todo todo);
 
    /// <summary> Save changes to the database </summary>
    /// <returns>A Task </returns>
    Task SaveChangesAsync();
+
+   Task<IEnumerable<Todo>> SearchTodosAsync(int? userId, Priority? priority, string? title, string? description);
 }

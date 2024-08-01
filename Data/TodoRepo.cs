@@ -16,7 +16,7 @@ public class TodoRepo : ITodoRepo
    {
       // check if user id is valid and exist
       var user = _context.Users.FirstOrDefault(u => u.Id == todo.UserId);
-      if(user == null)
+      if (user == null)
       {
          return null;
       }
@@ -44,14 +44,32 @@ public class TodoRepo : ITodoRepo
       await _context.SaveChangesAsync();
    }
 
-   public async Task UpdateTodoAsync(Todo todo)
+   public async Task<IEnumerable<Todo>> SearchTodosAsync(
+      int? userId,
+      Priority? priority,
+      string? title,
+      string? description
+   )
    {
-      var todoToUpdate = await _context.Todos.FirstOrDefaultAsync(t => t.Id == todo.Id);
+      var query = _context.Todos.AsQueryable();
 
-      if (todoToUpdate == null)
+      if (userId.HasValue)
       {
-         return;
+         query = query.Where(t => t.UserId == userId);
       }
-      _context.Todos.Update(todo);
+      if (priority.HasValue)
+      {
+         query = query.Where(t => t.Priority == priority);
+      }
+      if (!string.IsNullOrEmpty(title))
+      {
+         query = query.Where(t => t.Title.Contains(title));
+      }
+      if (!string.IsNullOrEmpty(description))
+      {
+         query = query.Where(t => t.Description.Contains(description));
+      }
+
+      return await query.ToListAsync();
    }
 }

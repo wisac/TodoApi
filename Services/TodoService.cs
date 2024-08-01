@@ -37,14 +37,43 @@ public class TodoService : ITodoService
       return true;
    }
 
-   public Task<IEnumerable<TodoReadDto>> GetAllTodos()
+   public async Task<IEnumerable<TodoReadDto>> GetAllTodos()
    {
-      throw new NotImplementedException();
+      var todos = await _repo.GetAllTodosAsync();
+
+      // if(todos == null){
+      //    return [];
+      // }
+
+      List<TodoReadDto> dtos = [];
+
+      foreach (var todo in todos)
+      {
+         dtos.Add(TodoMapper.MapToDto(todo));
+      }
+      return dtos;
    }
 
-   public Task<TodoReadDto> GetTodoById(TodoReadDto todo)
+   public async Task<TodoReadDto?> GetTodoById(int id)
    {
-      throw new NotImplementedException();
+      var todo = await _repo.GetTodoByIdAsync(id);
+      return todo == null ? null : TodoMapper.MapToDto(todo);
+   }
+
+   public async Task<IEnumerable<TodoReadDto>> SearchTodos(
+      int? userId,
+      Priority? priority,
+      string? title,
+      string? description
+   )
+   {
+      var todos = await _repo.SearchTodosAsync(userId, priority, title,description);
+      List<TodoReadDto> dtos = [];
+      foreach (var todo in todos)
+      {
+         dtos.Add(TodoMapper.MapToDto(todo));
+      }
+      return dtos;
    }
 }
 
