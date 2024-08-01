@@ -15,6 +15,7 @@ builder.Logging.AddConsole();
 builder.Services.AddScoped<ITodoRepo, TodoRepo>(); 
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
 
 // build connection string
 var connStringBuilder = new SqlConnectionStringBuilder()

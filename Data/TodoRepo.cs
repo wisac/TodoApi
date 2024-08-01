@@ -12,9 +12,16 @@ public class TodoRepo : ITodoRepo
       _context = dbContext;
    }
 
-   public async Task CreateTodoAsync(Todo todo)
+   public async Task<Todo?> CreateTodoAsync(Todo todo)
    {
+      // check if user id is valid and exist
+      var user = _context.Users.FirstOrDefault(u => u.Id == todo.UserId);
+      if(user == null)
+      {
+         return null;
+      }
       await _context.Todos.AddAsync(todo);
+      return todo;
    }
 
    public void DeleteTodo(Todo todo)

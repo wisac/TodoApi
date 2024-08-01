@@ -10,7 +10,7 @@ public interface ITodoRepo
    /// <summary> Create a new Todo </summary>
    /// <param name="todo">The Todo to create </param>
    /// <returns>A Task </returns>
-   Task CreateTodoAsync(Todo todo);
+   Task<Todo?> CreateTodoAsync(Todo todo);
 
    /// <summary> Get all Todos </summary>
    /// <returns>A Task of IEnumerable of Todos </returns>

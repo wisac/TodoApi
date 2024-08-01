@@ -27,5 +27,8 @@ public class User
    [Required]
    public string HashedPassword { get; set; } = string.Empty;
 
+   [Required]
+   public bool Verified { get; set; } = false;
+
    public ICollection<Todo> Todos { get; set; } = []; // initialize to empty list to avoid null reference exceptions
 }
